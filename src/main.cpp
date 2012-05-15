@@ -31,5 +31,7 @@ int main()
 	for (Node* elem(tail) ; elem != NULL ; elem = elem->next) // Displaying every line
 		std::cout << elem->line << std::endl;
 
+	freeNode(tail); // Freeing every node
+
 	return 0;
 }

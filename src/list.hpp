@@ -10,6 +10,7 @@ struct Node
 
 Node* addTailNode(Node* tail, const std::string& data);
 Node* addHeadNode(Node* head, const std::string& data);
+void freeNode(Node* tail);
 
 
 
