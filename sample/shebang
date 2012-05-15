@@ -1,0 +1,7 @@
+Le shebang, représenté par #!, est un en-tête d'un fichier qui indique au système que ce fichier est un ensemble de commandes pour l'interpréteur indiqué, possiblement un mot-valise pour sharp-bang1.
+
+On trouve aussi d'autres dénominations : sha-bang, shabang, she-bang, hash-bang.
+
+Techniquement, les caractères #! sont en fait un « nombre magique » (magic number), composé de deux octets, un marqueur spécial qui désigne un type de fichier, ou un script shell exécutable (la commande man magic donne plus de détails sur ce thème).
+
+Tout de suite après le shebang se trouve un chemin (exemple : #!/bin/bash). C'est le chemin vers le programme qui interprète les commandes de ce script, qu'il soit un shell, un langage de script, un langage de programmation ou un utilitaire. On peut le faire suivre des options qu'il reconnaît (par exemple -x pour un shell pour afficher le détail de son exécution). Ensuite, cet interpréteur de commandes exécute les commandes du script, en commençant au début (ligne 1), en ignorant les commentaires.

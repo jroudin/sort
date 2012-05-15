@@ -1,0 +1,7 @@
+string& erase ( size_t pos = 0, size_t n = npos );
+    Erases a sequence of n characters starting at position pos. Notice that both parameters are optional: with only one argument, the function deletes everything from position pos forwards, and with no arguments, the function deletes the entire string, like member clear.
+iterator erase ( iterator position );
+    Erases the character referred by the iterator position. Only one character is affected.
+iterator erase ( iterator first, iterator last );
+    Erases all the characters between first and last. 
+    

@@ -1,0 +1,12 @@
+haXe est un langage de programmation développé par Nicolas Cannasse et la société Motion-Twin qui, dans le cadre d’une utilisation pour le Web, permet d’écrire la partie serveur et la partie client dans un même langage.
+
+A cette fin, haXe permet de :
+
+    créer des fichiers SWF qui utilisent les APIs pour les lecteurs Flash Player 6 à 10 ;
+    créer du code JavaScript utilisant les API DHTML des navigateurs, ainsi que des applications AJAX ;
+    créer du bytecode pour la NekoVM qui peut être employé côté serveur (grâce à un plug-in Apache) ou empaqueté dans un exécutable autonome ;
+    créer du code PHP qui peut être déployé sur n’importe quel serveur supportant le langage PHP 5.
+
+haXe permet donc d'assurer l’interopérabilité entre ces différentes plateformes en fournissant des bibliothèques communes.
+
+Il permet, par ailleurs, de créer du code C++, et des cibles Java1 et C#2 sont en préparation.
