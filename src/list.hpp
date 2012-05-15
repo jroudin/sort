@@ -1,15 +1,15 @@
 #ifndef LIST_HPP
 #define LIST_HPP
-#include <string>
+#include "dynstr.hpp"
 
 struct Node
 {
-	std::string line;
+	DynStr* line;
 	Node* next;
 };
 
-Node* addTailNode(Node* tail, const std::string& data);
-Node* addHeadNode(Node* head, const std::string& data);
+Node* addTailNode(Node* tail, DynStr* data);
+Node* addHeadNode(Node* head, DynStr* data);
 void freeNode(Node* tail);
 
 

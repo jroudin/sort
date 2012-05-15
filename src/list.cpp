@@ -1,6 +1,6 @@
 #include "list.hpp"
 
-Node* addTailNode(Node* tail, const std::string& data)
+Node* addTailNode(Node* tail, DynStr* data)
 {
 	Node* node = new Node;
 
@@ -10,7 +10,7 @@ Node* addTailNode(Node* tail, const std::string& data)
 	return node; // Returning the tail node
 }
 
-Node* addHeadNode(Node* head, const std::string& data)
+Node* addHeadNode(Node* head, DynStr* data)
 {
 	Node* node = new Node;
 
@@ -29,6 +29,7 @@ void freeNode(Node* tail)
 	for(Node* elem(tail) ; elem != NULL ; elem = next)
 	{
 		next = elem->next;
+		freeStr(elem->line);
 		delete elem; // Farewell, node ! Your job was great, wanna lunch someday ? 
 	}
 }
