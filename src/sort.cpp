@@ -7,6 +7,7 @@ void quicksort(Node** list, int size)
 	Node* lists[2] = {NULL, NULL}; // The two alternate linked lists
 	Node* heads[2] = {NULL, NULL}; // and their last node
 	Node* pivot(NULL), *elem(NULL), *next(NULL); // Pivot and iterative nodes
+	std::string strElem(""), strPivot("");
 
 	if (list == NULL)
 		return; // Nothing to do
@@ -18,12 +19,15 @@ void quicksort(Node** list, int size)
 	if (pivot == NULL)
 		return; // No pivot, so, no sorting
 
+	adapt(strPivot = pivot->line);
+
 	for(elem = *list ; elem != NULL ; elem = next)
 	{
 		next = elem->next;
 		if (elem != pivot) // We assume the pivot is not in the linked list anymore
 		{
-			current = (elem->line.compare(pivot->line) <= 0) ? 0 : 1; // Determining which of the two lists
+			adapt(strElem = elem->line);
+			current = (strElem.compare(strPivot) <= 0) ? 0 : 1; // Determining which of the two lists
 																	  // we will use by comparing the data
 			sizes[current]++;
 
@@ -69,4 +73,20 @@ void quicksort(Node** list, int size)
 	pivot->next = lists[1];
 
 	*list = lists[0]; // Applying the quicksort
+}
+
+void adapt(std::string& str)
+{
+	int size(str.size());
+	for(int i(0) ; i < size && size > 0 ; ++i)
+	{
+		if (str[i] == ' ' || str[i] == '\t')
+		{
+			str.erase(i,1);
+			--i;
+			--size;
+		}
+		else
+			str[i] = std::tolower(str[i]);
+	}
 }
