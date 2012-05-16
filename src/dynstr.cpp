@@ -32,7 +32,7 @@ void displayStr(DynStr* str)
 		return;
 	}
 
-	for(int i(0) ; i < str->pos ; ++i)
+	for(size_t i(0) ; i < str->pos ; ++i)
 		std::cout << str->str[i];
 
 	displayStr(str->next);
@@ -52,7 +52,7 @@ void freeStr(DynStr* str)
 
 int compareStr(DynStr* a, DynStr* b)
 {
-	const int len(21);
+	const size_t len(21);
 	char bufferA[len], bufferB[len];
 
 	// This function is not recursive in order to create only two string of 21chars (bufferA, bufferB)
@@ -69,7 +69,7 @@ int compareStr(DynStr* a, DynStr* b)
 
 		// Otherwise : 
 
-		for (int i(0), posA(0), posB(0) ; i < len ; ++i, ++posA, ++posB)
+		for (size_t i(0), posA(0), posB(0) ; i < len ; ++i, ++posA, ++posB)
 		{
 			if (i < a->pos && ((a->str[i] >= 'a' && a->str[i] <= 'z') || (a->str[i] >= 'A' && a->str[i] <= 'Z') || (a->str[i] >= '0' && a->str[i] <= '9')))
 				bufferA[posA] = std::tolower(a->str[i]); // Adding every non-space character to the buffer

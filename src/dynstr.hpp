@@ -9,7 +9,7 @@
 struct DynStr
 {
 	char str[20];
-	int pos;
+	size_t pos;
 	DynStr* next;
 };
 
