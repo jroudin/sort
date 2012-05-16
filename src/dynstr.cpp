@@ -11,7 +11,7 @@ DynStr* addChar(DynStr* str, const char c)
 		s->next = NULL;
 	}
 
-	if ((s->pos+1) >= sizeof s->str)
+	if (s->pos >= sizeof s->str)
 	{
 		s->next = addChar(NULL, c);
 		return s->next; // Returning the head
