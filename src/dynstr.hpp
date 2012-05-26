@@ -1,15 +1,12 @@
 #ifndef DYN_STR_HPP
 #define DYN_STR_HPP
 #include <iostream>
-#include <cctype>
-#include <cstdio>
 #include <cstring>
 
 // Linked list strings
 struct DynStr
 {
-	char str[20];
-	size_t pos;
+	char str[21];
 	DynStr* next;
 };
 

@@ -7,35 +7,39 @@ DynStr* addChar(DynStr* str, const char c)
 	{
 		// Creating the tail of the string
 		s = new DynStr;
-		s->pos = 0;
+		s->str[0] = '\0'; // Initializing our string
 		s->next = NULL;
 	}
 
-	if (s->pos >= sizeof s->str)
+	if ((strlen(s->str)+1) >= sizeof s->str)
 	{
 		s->next = addChar(NULL, c);
 		return s->next; // Returning the head
 	}
 	else
 	{
-		s->str[s->pos++] = c;
+		strncat(s->str, &c, 1); // Adding the character to the str
+
+		// Notice we use strncat with the num parameter set as 1
+		// in order to copy the sole character and not depend of \0
+		// which will not appear since it is a character
+		// sprintf is too much for this use... 
+
 		return s; // We're still on the head at this moment
 	}
 }
 
-void displayStr(DynStr* str)
+void displayStr(DynStr* s)
 {
-	if (str == NULL)
+	if (s == NULL)
 	{
 		// End of this str, let's printing a new line
 		std::cout << std::endl;
 		return;
 	}
 
-	for(size_t i(0) ; i < str->pos ; ++i)
-		std::cout << str->str[i];
-
-	displayStr(str->next);
+	std::cout << s->str;
+	displayStr(s->next);
 }
 
 void freeStr(DynStr* str)
@@ -49,41 +53,20 @@ void freeStr(DynStr* str)
 
 int compareStr(DynStr* a, DynStr* b)
 {
-	const size_t len(21);
-	char bufferA[len], bufferB[len];
+	int cmp(0);
+	if (a == NULL && b == NULL) // So, a == b
+		return 0;
+	else if (a == NULL && b != NULL) // So, a < b
+		return -1;
+	else if (a != NULL && b == NULL) // So, a > b
+		return 1;
 
-	// This function is not recursive in order to create only two string of 21chars (bufferA, bufferB)
-	// If it was recursive, every strings would be kept until the final return value would be determined
+	// Otherwise : 
 
-	while(true)
-	{
-		if (a == NULL && b == NULL) // So, a == b
-			return 0;
-		else if (a == NULL && b != NULL) // So, a < b
-			return -1;
-		else if (a != NULL && b == NULL) // So, a > b
-			return 1;
+	cmp = strcoll(a->str, b->str); // comparing our strings
+	if (cmp != 0)
+		return cmp; // Those are not equal
 
-		// Otherwise : 
-
-		for (size_t i(0), posA(0), posB(0) ; i < len ; ++i, ++posA, ++posB)
-		{
-			if (i < a->pos)
-				bufferA[posA] = a->str[i]; // Adding every non-space character to the buffer
-			else
-				bufferA[posA] = '\0'; // End of the string, we don't care if this character is repeated
-
-			if (i < b->pos)
-				bufferB[posB] = b->str[i]; // Adding every non-space character to the buffer
-			else
-				bufferB[posB] = '\0'; // End of the string, we don't care if this character is repeated
-		}
-
-		int cmp = strcoll(bufferA, bufferB); // Finally comparing our strings
-		if (cmp != 0)
-			return cmp; // Those are not equal
-
-		a = a->next;
-		b = b->next;
-	}
+	// Strings are equal : let's proceed comparing with the next sequences... 
+	return compareStr(a->next, b->next);
 }
