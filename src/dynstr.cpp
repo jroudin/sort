@@ -74,7 +74,7 @@ int compareStr(DynStr* a, DynStr* b)
 				bufferA[posA] = '\0'; // End of the string, we don't care if this character is repeated
 
 			if (i < b->pos)
-				bufferB[posB] = std::tolower(b->str[i]); // Adding every non-space character to the buffer
+				bufferB[posB] = b->str[i]; // Adding every non-space character to the buffer
 			else
 				bufferB[posB] = '\0'; // End of the string, we don't care if this character is repeated
 		}
