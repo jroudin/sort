@@ -21,51 +21,42 @@ void quicksort(Node** list, int size)
 	for(elem = *list ; elem != NULL ; elem = next)
 	{
 		next = elem->next;
+		elem->next = NULL; // Pointing the next node to NULL (the node no longer belongs to the current list)
+
 		if (elem != pivot) // We assume the pivot is not in the linked list anymore
 		{
-			current = (compareStr(elem->line, pivot->line) <= 0) ? 0 : 1; // Determining which of the two lists
-																	  // we will use by comparing the data
+			// Determining which of the two lists we will use by comparing the data
+			current = (compareStr(elem->line, pivot->line) < 0) ? 0 : 1; 
 			sizes[current]++;
 
+			// Filling the alternate list
 			if (lists[current] == NULL)
-			{
-				// Initializing the alternate list
-				lists[current] = elem;
-				lists[current]->next = NULL;
-
-				heads[current] = lists[current]; // The head is currently the tail
-			}
+				lists[current] = elem; // Initializing the alternate list
 			else
-			{
-				// Filling the alternate list
-				heads[current]->next = elem;
-				heads[current] = heads[current]->next;
-			}
+				heads[current]->next = elem; // Pointing to the (future) new head
+
+			heads[current] = elem; // The current head of this list is the current node
 		}
 	}
-
-	// Both of alternate lists must end with their head pointing to NULL
-
-	if (heads[0] != NULL)
-		heads[0]->next = NULL;
-
-	if (heads[1] != NULL)
-		heads[1]->next = NULL;
-
-	elem = NULL;
 
 	// Recursive calling in order to quicksort our alternate lists... 
 	quicksort(lists, sizes[0]);
 	quicksort(lists+1, sizes[1]);
 
+	elem = NULL;
 	if (lists[0] != NULL)
 		for (next = lists[0] ; next != NULL ; next = elem->next) // Looking for the (new) head of the first alternate list
 			elem = next;
 
-	if (elem != NULL) // Placing our pivot between our two alternate lists
+	// Placing our pivot between our two alternate lists
+
+	// The pivot is at the end of the first list...
+	if (elem != NULL)
 		elem->next = pivot;
 	else
-		lists[0] = pivot; // Or beginning with the pivot
+		lists[0] = pivot; // ...and may also be the only node of that list. 
+
+	// The pivot is pointing to the first node of the second list (which can be empty)
 	pivot->next = lists[1];
 
 	*list = lists[0]; // Applying the quicksort
