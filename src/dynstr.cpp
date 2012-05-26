@@ -71,22 +71,18 @@ int compareStr(DynStr* a, DynStr* b)
 
 		for (size_t i(0), posA(0), posB(0) ; i < len ; ++i, ++posA, ++posB)
 		{
-			if (i < a->pos && ((a->str[i] >= 'a' && a->str[i] <= 'z') || (a->str[i] >= 'A' && a->str[i] <= 'Z') || (a->str[i] >= '0' && a->str[i] <= '9')))
-				bufferA[posA] = std::tolower(a->str[i]); // Adding every non-space character to the buffer
-			else if (i >= a->pos)
+			if (i < a->pos)
+				bufferA[posA] = a->str[i]; // Adding every non-space character to the buffer
+			else
 				bufferA[posA] = '\0'; // End of the string, we don't care if this character is repeated
-			else
-				--posA; // The character was a spacer : we stay at the current pos
 
-			if (i < b->pos && ((b->str[i] >= 'a' && b->str[i] <= 'z') || (b->str[i] >= 'A' && b->str[i] <= 'Z') || (b->str[i] >= '0' && b->str[i] <= '9')))
+			if (i < b->pos)
 				bufferB[posB] = std::tolower(b->str[i]); // Adding every non-space character to the buffer
-			else if (i >= b->pos)
-				bufferB[posB] = '\0'; // End of the string, we don't care if this character is repeated
 			else
-				--posB; // The character was a spacer : we stay at the current pos
+				bufferB[posB] = '\0'; // End of the string, we don't care if this character is repeated
 		}
 
-		int cmp = strcmp(bufferA, bufferB); // Finally comparing our strings
+		int cmp = strcoll(bufferA, bufferB); // Finally comparing our strings
 		if (cmp != 0)
 			return cmp; // Those are not equal
 

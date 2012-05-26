@@ -1,14 +1,16 @@
 #include <iostream>
+#include <clocale>
 #include "list.hpp"
 #include "sort.hpp"
 #include "dynstr.hpp"
 
 int main()
 {
-	Node* head(NULL);
-	Node* tail(NULL);
+	Node* head(NULL), *tail(NULL);
 	DynStr* str(NULL), *strHead(NULL);
 	int size(0);
+
+	setlocale(LC_COLLATE, "");
 
 	for (char c(std::cin.get()) ; !std::cin.eof() ; c = std::cin.get() ) // getting standard input until its end
 	{
