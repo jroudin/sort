@@ -43,11 +43,8 @@ void freeStr(DynStr* str)
 	if (str == NULL)
 		return;
 
-	DynStr* next = str->next;
+	freeStr(str->next);
 	delete str;
-
-	if (next != NULL)
-		freeStr(next);
 }
 
 int compareStr(DynStr* a, DynStr* b)

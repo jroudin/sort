@@ -22,14 +22,12 @@ Node* addHeadNode(Node* head, DynStr* data)
 	return node; // Returning the head node
 }
 
-void freeNode(Node* tail)
+void freeNode(Node* node)
 {
-	Node* next(NULL);
+	if (node == NULL)
+		return;
 
-	for(Node* elem(tail) ; elem != NULL ; elem = next)
-	{
-		next = elem->next;
-		freeStr(elem->line);
-		delete elem; // Farewell, node ! Your job was great, wanna lunch someday ? 
-	}
+	freeStr(node->line);
+	freeNode(node->next); // Recursive call
+	delete node;
 }
