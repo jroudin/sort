@@ -2,32 +2,32 @@
 
 Node* addTailNode(Node* tail, DynStr* data)
 {
-	Node* node = new Node;
+    Node* node = new Node;
 
-	node->line = data;
-	node->next = tail;
+    node->line = data;
+    node->next = tail;
 
-	return node; // Returning the tail node
+    return node; // Returning the tail node
 }
 
 Node* addHeadNode(Node* head, DynStr* data)
 {
-	Node* node = new Node;
+    Node* node = new Node;
 
-	node->line = data;
-	node->next = NULL;
-	
-	if (head != NULL)
-		head->next = node;
-	return node; // Returning the head node
+    node->line = data;
+    node->next = NULL;
+    
+    if (head != NULL)
+        head->next = node;
+    return node; // Returning the head node
 }
 
 void freeNode(Node* node)
 {
-	if (node == NULL)
-		return;
+    if (node == NULL)
+        return;
 
-	freeStr(node->line);
-	freeNode(node->next); // Recursive call
-	delete node;
+    freeStr(node->line);
+    freeNode(node->next); // Recursive call
+    delete node;
 }

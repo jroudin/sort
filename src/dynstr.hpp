@@ -6,8 +6,8 @@
 // Linked list strings
 struct DynStr
 {
-	char str[21];
-	DynStr* next;
+    char str[21];
+    DynStr* next;
 };
 
 DynStr* addChar(DynStr* str, const char c);

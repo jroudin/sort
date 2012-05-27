@@ -4,8 +4,8 @@
 
 struct Node
 {
-	DynStr* line;
-	Node* next;
+    DynStr* line;
+    Node* next;
 };
 
 Node* addTailNode(Node* tail, DynStr* data);
