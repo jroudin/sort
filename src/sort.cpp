@@ -6,7 +6,7 @@ Node* quicksort(Node* list, int size)
     int current(0), sizes[2] = {0, 0};
     Node* lists[2] = {NULL, NULL}; // The two alternate linked lists
     Node* heads[2] = {NULL, NULL}; // and their last node
-    Node* pivot(NULL), *elem(list); // Pivot and temp nodes
+    Node* pivot(NULL), *elem(list), *next(NULL); // Pivot and temp nodes
 
     if (list == NULL)
         return NULL; // Nothing to do
@@ -49,7 +49,7 @@ Node* quicksort(Node* list, int size)
     // Looking for the (new) head of the first alternate list
     elem = NULL;
     if (lists[0] != NULL)
-        for (Node* next(lists[0]) ; next != NULL ; next = elem->next)
+        for (next = lists[0] ; next != NULL ; next = elem->next)
             elem = next;
 
     // Placing our pivot between our two alternate lists
