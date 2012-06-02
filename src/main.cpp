@@ -6,7 +6,7 @@
 
 int main()
 {
-    Node* head(NULL), *tail(NULL);
+    Node* list(NULL);
     DynStr* str(NULL), *strHead(NULL);
     int size(0);
 
@@ -18,30 +18,28 @@ int main()
         if (c == '\n') // the line stopped there
         {
             ++size;
-            head = addHeadNode(head, str); // creating a node with the line... 
-            if (tail == NULL) // the line has just been created, 
-                tail = head;  // so we initialize the tail
+            list = addTailNode(list, str); // creating a node with the line... 
             strHead = str = NULL;
         }
         else
         {
             strHead = addChar(strHead, c);
             if (str == NULL)
-                str = strHead;
+                str = strHead; // This is the beginning of the string
         }
     }
 
     // In case of STDIN terminating without stopping the current line... 
     if (str != NULL)
-        head = addHeadNode(head, str);
+        list = addTailNode(list, str);
 
-    tail = quicksort(tail, size);
+    list = quicksort(list, size);
 
     // Displaying every line
-    for (Node* elem(tail) ; elem != NULL ; elem = elem->next)
+    for (Node* elem(list) ; elem != NULL ; elem = elem->next)
         displayStr(elem->line);
 
-    freeNode(tail); // Freeing every node
+    freeNode(list); // Freeing every node
 
     return 0;
 }
