@@ -2,7 +2,7 @@
 
 DynStr* addChar(DynStr* str, const char c)
 {
-    DynStr* s = str;
+    DynStr* s(str);
     if (s == NULL)
     {
         // Creating the tail of the string
@@ -13,6 +13,7 @@ DynStr* addChar(DynStr* str, const char c)
 
     if ((strlen(s->str)+1) >= sizeof s->str)
     {
+        // The string is full
         s->next = addChar(NULL, c);
         return s->next; // Returning the head
     }
@@ -22,7 +23,7 @@ DynStr* addChar(DynStr* str, const char c)
 
         // Notice we use strncat with the num parameter set as 1
         // in order to copy the sole character and not depend of \0
-        // which will not appear since it is a character
+        // which will never appear since it is a character
         // sprintf is too much for this use... 
 
         return s; // We're still on the head at this moment
@@ -51,9 +52,22 @@ void freeStr(DynStr* str)
     delete str;
 }
 
+bool isBlank(DynStr* s)
+{
+    if (s == NULL)
+        return true;
+
+    for (size_t i(0) ; s->str[i] != '\0' ; ++i)
+        if (s->str[i] != ' ' && s->str[i] != '\t' && 
+            s->str[i] != '\n' && s->str[i] != '\r')
+            return false;
+    return true;
+}
+
 int compareStr(DynStr* a, DynStr* b)
 {
     int cmp(0);
+    bool aBlank(false), bBlank(false);
     if (a == NULL && b == NULL) // So, a == b
         return 0;
     else if (a == NULL && b != NULL) // So, a < b
@@ -61,12 +75,18 @@ int compareStr(DynStr* a, DynStr* b)
     else if (a != NULL && b == NULL) // So, a > b
         return 1;
 
-    // Otherwise : 
+    aBlank = isBlank(a);
+    bBlank = isBlank(b);
 
-    cmp = strcoll(a->str, b->str); // comparing our strings
-    if (cmp != 0)
-        return cmp; // Those are not equal
+    if (!aBlank && !bBlank)
+    {
+        cmp = strcoll(a->str, b->str); // comparing our strings
+        if (cmp != 0)
+            return cmp; // Those are not equal
 
-    // Strings are equal : let's proceed comparing with the next sequences... 
-    return compareStr(a->next, b->next);
+        // Strings are equal : let's proceed comparing with the next sequences... 
+        return compareStr(a->next, b->next);
+    }
+    else
+        return compareStr(aBlank ? a->next : a, bBlank ? b->next : b);
 }
