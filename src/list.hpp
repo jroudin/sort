@@ -9,7 +9,6 @@ struct Node
 };
 
 Node* addTailNode(Node* tail, DynStr* data);
-Node* addHeadNode(Node* head, DynStr* data);
 void freeNode(Node* tail);
 
 
